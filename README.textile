@@ -1,31 +1,83 @@
 h1. SpanishInquisition
 
-TODO: Write a gem description
+Nobody expects the Spanish Inquisition!
 
 h2. Installation
 
 It's a gem - so, like any other gem, add it to your app's Gemfile:
 
-    gem 'spanish_inquisition'
+<pre><code>gem 'spanish_inquisition'</code></pre>
 
 And then execute:
 
-    $ bundle
+<pre><code>$ bundle</code></pre>
 
 Or install it yourself as:
 
-    $ gem install spanish_inquisition
+<pre><code>$ gem install spanish_inquisition</code></pre>
 
 h2. Usage
 
-TODO: Write usage instructions here
+Firstly, you'll want to define your surveys in files within @app/surveys@. Here's a quick example:
+
+<pre><code>SpanishInquisition::Survey.new :inquisition do |survey|
+  survey.page do |page|
+    page.question :weapon do |question|
+      question.text    = 'What is your chief weapon?''
+      question.style   = :one
+      question.answers = ['fear', 'surprise', 'ruthless efficency']
+    end
+
+    page.question :torture do |question|
+      question.text    = 'What do you torture with?'
+      question.style   = :one
+      question.answers = ['The Rack', 'The Cushions', 'The Comfy Chair']
+    end
+  end
+
+  survey.page do |page|
+    page.question :comments do |question|
+      question.text     = 'Do you have any suggestions for better torture devices?'
+      question.style    = :text
+      question.required = false
+    end
+
+    page.question :cardinal do |question|
+      question.text =  'Who is your favourite Cardinal: Ximinex, Biggles or Fang?'
+      question.style = :string
+    end
+  end
+end</code></pre>
+
+Questions are required by default, and currently only three question styles are supported: :string (a standard text field), :text (a multi-line text field, aka the textarea HTML element), and :one (many options, single choice, aka radio inputs). The @answers@ value can be anything that Formtastic accepts as a collection (so both arrays and hashes are valid settings).
+
+Rendering the form is done via a presenter:
+
+<pre><code>survey = SpanishInquisition::Presenter.new :inquisition, params[:survey]</code></pre>
+
+And then, this presenter can be used within a Formtastic-built form in your views:
+
+<pre><code><%= semantic_form_for survey do |form| %>
+  <%= survey.render_to form %>
+  <%= form.actions do %>
+    <%= form.action :submit, :label => 'Save my answers' %>
+  <%- end %>
+<%- end %></code></pre>
+
+When the form is posted back, you will have to persist the results somewhere - they can be obtained via the @answers@ method on the presenter. It will return a hash with each question's identifier as the keys, and the supplied answers as the values.
+
+There's a few more optoins available with questions, but the source is simple and uncomplicated - I'd recommend reading it.
 
 h2. Contributing
 
 This gem is built using "git-flow":https://github.com/nvie/gitflow - so keep in mind that the master branch is the release branch, develop is work-in-progress, and any in-progress features get their own feature branches.
 
-1. Fork it
-2. Create your feature branch (`git checkout -b feature/name`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin feature/name`)
-5. Create new Pull Request
+# Fork it
+# Create your feature branch (`git checkout -b feature/name`)
+# Commit your changes (`git commit -am 'Add some feature'`)
+# Push to the branch (`git push origin feature/name`)
+# Create new Pull Request
+
+h2. Licence
+
+Copyright (c) 2013, Spanish Inquisition is developed and maintained by Pat Allan and Inspire9, and is released under the open MIT Licence.
