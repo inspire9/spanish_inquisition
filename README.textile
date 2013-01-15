@@ -1,6 +1,8 @@
-h1. SpanishInquisition
+h1. Spanish Inquisition
 
 Nobody expects the Spanish Inquisition!
+
+This is a simple and opinionated survey library for Rails. It generates the form using Formtastic, and it does not deal with persistence - the surveys are plain Ruby objects, not ActiveRecord objects. It fulfills our needs at Inspire9 nicely - and perhaps it's what you're looking for too.
 
 h2. Installation
 
