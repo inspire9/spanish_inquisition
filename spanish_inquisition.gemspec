@@ -11,4 +11,7 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split($/)
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
+
+  gem.add_runtime_dependency 'activemodel', '~> 3.2'
+  gem.add_runtime_dependency 'formtastic',  '~> 2.2'
 end

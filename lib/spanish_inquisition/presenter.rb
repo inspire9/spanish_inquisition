@@ -1,3 +1,7 @@
+require 'active_model/naming'
+require 'active_model/conversion'
+require 'active_model/validations'
+
 class SpanishInquisition::Presenter
   include ActiveModel::Conversion
   include ActiveModel::Validations
