@@ -13,6 +13,8 @@ module SpanishInquisition
     load
     @surveys ||= {}
   end
+
+  module Presenters; end
 end
 
 require 'spanish_inquisition/page'
