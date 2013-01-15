@@ -1,0 +1,31 @@
+h1. SpanishInquisition
+
+TODO: Write a gem description
+
+h2. Installation
+
+It's a gem - so, like any other gem, add it to your app's Gemfile:
+
+    gem 'spanish_inquisition'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install spanish_inquisition
+
+h2. Usage
+
+TODO: Write usage instructions here
+
+h2. Contributing
+
+This gem is built using "git-flow":https://github.com/nvie/gitflow - so keep in mind that the master branch is the release branch, develop is work-in-progress, and any in-progress features get their own feature branches.
+
+1. Fork it
+2. Create your feature branch (`git checkout -b feature/name`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/name`)
+5. Create new Pull Request
