@@ -7,6 +7,18 @@ class SpanishInquisition::Presenters::QuestionPresenter
     case question.style
     when :one
       form.input question.identifier, as: :radio, collection: question.answers, label: question.text
+    when :many
+      form.input question.identifier, as: :check_boxes, collection: question.answers, label: question.text
+    when :file
+      form.input question.identifier, as: :file, label: question.text
+    when :password
+      form.input question.identifier, as: :password, label: question.text
+    when :date_select
+      form.input question.identifier, as: :date_select, label: question.text
+    when :datetime_select
+      form.input question.identifier, as: :datetime_select, label: question.text
+    when :time_select
+      form.input question.identifier, as: :time_select, label: question.text
     when :string
       form.input question.identifier, as: :string, label: question.text
     when :text
