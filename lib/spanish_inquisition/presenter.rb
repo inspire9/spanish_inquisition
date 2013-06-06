@@ -23,9 +23,9 @@ class SpanishInquisition::Presenter
 
   def answers
     questions.inject({}) do |hash, question|
-      if question.capture?(attributes)
-        hash[question.identifier] = attributes[question.identifier]
-      end
+      question_identifiers(question).each do |identifier|
+        hash[identifier] = attributes[identifier]
+      end if question.capture?(attributes)
 
       hash
     end
@@ -58,17 +58,34 @@ class SpanishInquisition::Presenter
   def invalid_question?(question)
     question.capture?(attributes) &&
     question.required? &&
-    attributes[question.identifier].blank?
+    question_identifiers(question).any? { |identifier|
+      attributes[identifier].blank?
+    }
+  end
+
+  def location_question?
+    survey.pages.collect(&:questions).flatten.any? { |question|
+      question.style == :location
+    }
   end
 
   def method_missing(method, *arguments, &block)
-    return attributes[method] if survey.question_identifiers.include?(method)
+    return attributes[method] if survey.question_identifiers.include? method
+    if (method == :lat || method == :lng) && location_question?
+      return attributes[method]
+    end
 
     super
   end
 
   def questions
     @questions ||= survey.pages.collect(&:questions).flatten
+  end
+
+  def question_identifiers(question)
+    return [question.identifier] unless question.style == :location
+
+    [question.identifier, :lat, :lng]
   end
 
   def required_answers

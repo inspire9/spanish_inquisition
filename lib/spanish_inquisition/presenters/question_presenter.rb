@@ -23,6 +23,12 @@ class SpanishInquisition::Presenters::QuestionPresenter
       form.input question.identifier, as: :string, label: question.text
     when :text
       form.input question.identifier, as: :text, label: question.text
+    when :location
+      [
+        form.input(question.identifier, as: :string, label: question.text, input_html: { class: 'location' }),
+        form.input(:lat, as: :hidden, input_html: {class: 'lat'}),
+        form.input(:lng, as: :hidden, input_html: {class: 'lng'})
+      ].join(' ').html_safe
     else
       raise "Unknown question style: #{question.style}"
     end
