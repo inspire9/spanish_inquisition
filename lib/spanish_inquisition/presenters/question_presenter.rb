@@ -27,7 +27,9 @@ class SpanishInquisition::Presenters::QuestionPresenter
       [
         form.input(question.identifier, as: :string, label: question.text, input_html: { class: 'location' }),
         form.input(:lat, as: :hidden, input_html: {class: 'lat'}),
-        form.input(:lng, as: :hidden, input_html: {class: 'lng'})
+        form.input(:lng, as: :hidden, input_html: {class: 'lng'}),
+        form.input(:state, as: :hidden, input_html: {class: 'state'}),
+        form.input(:country, as: :hidden, input_html: {class: 'country'})
       ].join(' ').html_safe
     else
       raise "Unknown question style: #{question.style}"

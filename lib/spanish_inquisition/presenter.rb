@@ -6,6 +6,9 @@ class SpanishInquisition::Presenter
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
+  LOCATION_IDENTIFIERS = [:lat, :lng, :state, :country]
+  REQUIRED_LOCATION_IDENTIFIERS = [:lat, :lng]
+
   validate :required_answers
 
   delegate :heading, :description, to: :survey
@@ -58,7 +61,7 @@ class SpanishInquisition::Presenter
   def invalid_question?(question)
     question.capture?(attributes) &&
     question.required? &&
-    question_identifiers(question).any? { |identifier|
+    question_identifiers(question, true).any? { |identifier|
       attributes[identifier].blank?
     }
   end
@@ -71,7 +74,7 @@ class SpanishInquisition::Presenter
 
   def method_missing(method, *arguments, &block)
     return attributes[method] if survey.question_identifiers.include? method
-    if (method == :lat || method == :lng) && location_question?
+    if LOCATION_IDENTIFIERS.include?(method) && location_question?
       return attributes[method]
     end
 
@@ -82,10 +85,14 @@ class SpanishInquisition::Presenter
     @questions ||= survey.pages.collect(&:questions).flatten
   end
 
-  def question_identifiers(question)
+  def question_identifiers(question, required = false)
     return [question.identifier] unless question.style == :location
 
-    [question.identifier, :lat, :lng]
+    if required
+      [question.identifier] + REQUIRED_LOCATION_IDENTIFIERS
+    else
+      [question.identifier] + LOCATION_IDENTIFIERS
+    end
   end
 
   def required_answers
