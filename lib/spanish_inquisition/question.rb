@@ -14,4 +14,11 @@ class SpanishInquisition::Question
   def capture?(responses)
     @capture.nil? || @capture.call(responses)
   end
+
+  def type
+    return :date     if style == :date_select
+    return :location if style == :location
+
+    :string
+  end
 end

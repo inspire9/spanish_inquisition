@@ -19,7 +19,9 @@ class SpanishInquisition::Presenter
 
   def initialize(identifier, attributes = {})
     @survey     = SpanishInquisition.surveys[identifier]
-    @attributes = attributes || {}
+    @attributes = SpanishInquisition::Attributes.new(
+      attributes || {}, question_types
+    )
 
     raise SpanishInquisition::SurveyNotFound if @survey.nil?
   end
@@ -50,7 +52,7 @@ class SpanishInquisition::Presenter
 
   def to_json
     questions.collect { |question|
-      SpanishInquisition::Presenters::QuestionPresenter.new(nil, question).to_json(attributes)
+      SpanishInquisition::Presenters::QuestionPresenter.new(nil, question).to_json(attributes.to_hash)
     }
   end
 
@@ -92,6 +94,13 @@ class SpanishInquisition::Presenter
       [question.identifier] + REQUIRED_LOCATION_IDENTIFIERS
     else
       [question.identifier] + LOCATION_IDENTIFIERS
+    end
+  end
+
+  def question_types
+    questions.inject({}) do |hash, question|
+      hash[question.identifier] = question.type
+      hash
     end
   end
 
