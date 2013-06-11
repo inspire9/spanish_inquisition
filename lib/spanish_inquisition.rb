@@ -14,9 +14,14 @@ module SpanishInquisition
     @surveys ||= {}
   end
 
+  def self.defaults
+    @defaults ||= {}
+  end
+
   module Presenters; end
 end
 
+require 'spanish_inquisition/attributes'
 require 'spanish_inquisition/page'
 require 'spanish_inquisition/presenter'
 require 'spanish_inquisition/presenters/page_presenter'

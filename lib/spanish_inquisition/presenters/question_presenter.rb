@@ -14,9 +14,11 @@ class SpanishInquisition::Presenters::QuestionPresenter
     when :password
       form.input question.identifier, as: :password, label: question.text
     when :date_select
-      form.input question.identifier, as: :date_select, label: question.text
+      form.input question.identifier,
+        {as: :date_select, label: question.text}.merge(date_options)
     when :datetime_select
-      form.input question.identifier, as: :datetime_select, label: question.text
+      form.input question.identifier,
+        {as: :datetime_select, label: question.text}.merge(date_options)
     when :time_select
       form.input question.identifier, as: :time_select, label: question.text
     when :string
@@ -48,4 +50,8 @@ class SpanishInquisition::Presenters::QuestionPresenter
   private
 
   attr_reader :form, :question
+
+  def date_options
+    SpanishInquisition.defaults.dup
+  end
 end
