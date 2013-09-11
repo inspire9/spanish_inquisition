@@ -38,5 +38,19 @@ describe SpanishInquisition::Attributes do
         :"created_on(3i)" => '11'
       }, {:created_on => :date})[:created_on].should be_nil
     end
+
+    it "translates string date values" do
+      SpanishInquisition::Attributes.new(
+        {:created_on => '2013-06-11'},
+        {:created_on => :date}
+      )[:created_on].should == Date.new(2013, 6, 11)
+    end
+
+    it "accepts date values" do
+      SpanishInquisition::Attributes.new(
+        {:created_on => Date.new(2013, 6, 11)},
+        {:created_on => :date}
+      )[:created_on].should == Date.new(2013, 6, 11)
+    end
   end
 end
