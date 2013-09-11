@@ -50,6 +50,12 @@ class SpanishInquisition::Presenter
     }.join.html_safe
   end
 
+  def respond_to?(method, include_all = false)
+    survey.question_identifiers.include?(method)                  ||
+    (LOCATION_IDENTIFIERS.include?(method) && location_question?) ||
+    super
+  end
+
   def to_json
     questions.collect { |question|
       SpanishInquisition::Presenters::QuestionPresenter.new(nil, question).to_json(attributes.to_hash)
