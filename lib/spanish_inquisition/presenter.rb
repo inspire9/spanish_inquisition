@@ -114,7 +114,12 @@ class SpanishInquisition::Presenter
     questions.each do |question|
       next unless invalid_question?(question)
 
-      errors.add question.identifier, 'must be answered'
+      case question.style
+      when :location
+        errors.add question.identifier, 'must be entered'
+      else
+        errors.add question.identifier, 'must be answered'
+      end
     end
   end
 end
