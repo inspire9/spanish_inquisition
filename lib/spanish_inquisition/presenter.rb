@@ -116,7 +116,7 @@ class SpanishInquisition::Presenter
 
       case question.style
       when :location
-        errors.add question.identifier, 'must be entered'
+        errors.add question.identifier, 'must be selected from the prompted options'
       else
         errors.add question.identifier, 'must be answered'
       end
