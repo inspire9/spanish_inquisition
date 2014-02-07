@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |gem|
   gem.name          = 'spanish_inquisition'
-  gem.version       = '1.0.0'
+  gem.version       = '1.1.0'
   gem.authors       = ['Pat Allan']
   gem.email         = ['pat@freelancing-gods.com']
   gem.summary       = 'Simple Ruby survey DSL'
