@@ -1,5 +1,6 @@
 class SpanishInquisition::Page
   attr_reader :questions
+  attr_accessor :identifier
 
   def initialize(&block)
     @questions = []
