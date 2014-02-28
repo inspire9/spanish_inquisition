@@ -12,7 +12,7 @@ class SpanishInquisition::Presenters::QuestionPresenter
     when :file
       form.input question.identifier, as: :file, label: question.text
     when :password
-      form.input question.identifier, as: :password, label: question.text
+      form.input question.identifier, as: :password, label: question.text, input_html: { placeholder: question.placeholder }
     when :date_select
       form.input question.identifier,
         {as: :date_select, label: question.text}.merge(date_options)
@@ -22,12 +22,12 @@ class SpanishInquisition::Presenters::QuestionPresenter
     when :time_select
       form.input question.identifier, as: :time_select, label: question.text
     when :string
-      form.input question.identifier, as: :string, label: question.text
+      form.input question.identifier, as: :string, label: question.text, input_html: { placeholder: question.placeholder }
     when :text
-      form.input question.identifier, as: :text, label: question.text
+      form.input question.identifier, as: :text, label: question.text, input_html: { placeholder: question.placeholder }
     when :location
       [
-        form.input(question.identifier, as: :string, label: question.text, input_html: { class: 'location' }),
+        form.input(question.identifier, as: :string, label: question.text, input_html: { placeholder: question.placeholder, class: 'location' }),
         form.input(:lat, as: :hidden, input_html: {class: 'lat'}),
         form.input(:lng, as: :hidden, input_html: {class: 'lng'}),
         form.input(:state, as: :hidden, input_html: {class: 'state'}),
