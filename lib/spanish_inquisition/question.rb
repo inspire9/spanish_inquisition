@@ -1,6 +1,6 @@
 class SpanishInquisition::Question
   attr_reader   :identifier
-  attr_accessor :text, :style, :answers, :capture, :required, :placeholder
+  attr_accessor :text, :style, :answers, :capture, :required, :placeholder, :wrapper_html
 
   alias_method :required?, :required
 
