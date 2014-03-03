@@ -6,7 +6,8 @@ class SpanishInquisition::Presenters::QuestionPresenter
   def to_html
     case question.style
     when :one
-      form.input question.identifier, as: :radio, collection: question.answers, label: question.text
+      form.input question.identifier, as: :radio, collection: question.answers,
+        label: question.text, wrapper_html: question.wrapper_html || {}
     when :many
       form.input question.identifier, as: :check_boxes, collection: question.answers, label: question.text
     when :file
