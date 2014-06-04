@@ -1,12 +1,13 @@
 class SpanishInquisition::Question
   attr_reader   :identifier
-  attr_accessor :text, :style, :answers, :capture, :required, :placeholder, :wrapper_html
+  attr_accessor :text, :style, :answers, :capture, :required, :placeholder, :wrapper_html, :error_subject
 
   alias_method :required?, :required
 
   def initialize(identifier, &block)
-    @identifier = identifier
-    @required   = true
+    @identifier         = identifier
+    @required           = true
+    @error_subject      = :identifier
 
     block.call self
   end
@@ -20,5 +21,16 @@ class SpanishInquisition::Question
     return :location if style == :location
 
     :string
+  end
+
+  def error_subject
+    case @error_subject
+    when :identifier
+      identifier
+    when :text
+      text
+    else
+      @error_subject
+    end
   end
 end
