@@ -1,9 +1,10 @@
 class SpanishInquisition::Page
   attr_reader :questions
-  attr_accessor :identifier
+  attr_accessor :identifier, :random_order
 
   def initialize(&block)
-    @questions = []
+    @questions     = []
+    @random_order  = false
 
     block.call self
   end

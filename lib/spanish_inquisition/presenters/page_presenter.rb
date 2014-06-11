@@ -5,7 +5,8 @@ class SpanishInquisition::Presenters::PagePresenter
 
   def to_html
     form.inputs(*input_options) do
-      question_presenters.each do |presenter|
+      order = page.random_order ? :shuffle : :to_a
+      question_presenters.send(order).each do |presenter|
         form.template.concat presenter.to_html
       end
     end
