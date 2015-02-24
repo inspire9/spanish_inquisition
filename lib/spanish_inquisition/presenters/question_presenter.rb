@@ -44,7 +44,8 @@ class SpanishInquisition::Presenters::QuestionPresenter
       'identifier' => question.identifier,
       'text'       => question.text,
       'required'   => question.required,
-      'capture'    => question.capture?(responses)
+      'capture'    => question.capture?(responses),
+      'answers'    => question.answers
     }
   end
 
