@@ -57,9 +57,11 @@ class SpanishInquisition::Presenter
   end
 
   def to_json
-    questions.collect { |question|
-      SpanishInquisition::Presenters::QuestionPresenter.new(nil, question).to_json(attributes.to_hash)
-    }
+    survey.pages.collect { |page|
+      page.questions.collect { |question|
+        SpanishInquisition::Presenters::QuestionPresenter.new(nil, question).to_json(attributes.to_hash).merge(page: page.identifier)
+      }
+    }.flatten
   end
 
   private
