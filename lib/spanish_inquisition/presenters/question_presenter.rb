@@ -41,13 +41,14 @@ class SpanishInquisition::Presenters::QuestionPresenter
 
   def to_json(responses = [])
     {
-      'identifier'  => question.identifier,
-      'text'        => question.text,
-      'required'    => question.required,
-      'capture'     => question.capture?(responses),
-      'answers'     => question.answers,
-      'placeholder' => question.placeholder,
-      'style'       => question.style
+      'identifier'   => question.identifier,
+      'text'         => question.text,
+      'required'     => question.required,
+      'capture'      => question.capture?(responses),
+      'answers'      => question.answers,
+      'placeholder'  => question.placeholder,
+      'style'        => question.style,
+      'wrapper_html' => question.wrapper_html
     }
   end
 
